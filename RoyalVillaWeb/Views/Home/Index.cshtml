@@ -1,0 +1,16 @@
+@model RoyalVillaWeb.Models.VillasPageViewModel
+@{ ViewData["Title"] = "Private villas for considered stays"; }
+<section class="hero">
+    <div class="hero-image" role="img" aria-label="Sunlit villa overlooking the sea"></div>
+    <div class="hero-shade"></div>
+    <div class="container hero-content"><span class="hero-kicker"><span></span> THE ART OF GETTING AWAY</span><h1>Find your place<br />in the <em>sun.</em></h1><p>Exceptional villas. Thoughtfully chosen. Made for the moments that stay with you.</p><a class="btn btn-cream" asp-controller="Villas" asp-action="Index">Discover our villas <span>↗</span></a></div>
+    <div class="hero-caption">PRIVATE HOMES · EXTRAORDINARY PLACES</div>
+</section>
+<section class="intro-strip"><div class="container intro-inner"><span>01 — STAY DIFFERENT</span><p>Room to breathe. Space to belong.<br /><strong>Every stay has a story.</strong></p><span class="intro-mark">✳</span></div></section>
+<section class="section-pad container" id="featured">
+    <div class="section-heading"><div><span class="eyebrow">A FEW OF OUR FAVOURITES</span><h2>Somewhere <em>special.</em></h2></div><a class="text-link" asp-controller="Villas" asp-action="Index">View all villas <span>↗</span></a></div>
+    @if (Model.Error is not null) { <div class="api-state"><div class="state-icon">⌁</div><h3>We’re having a quiet moment.</h3><p>@Model.Error</p><a class="btn btn-dark-green" asp-action="Index">Try again</a></div> }
+    else if (Model.Villas.Count == 0) { <div class="api-state"><div class="state-icon">⌂</div><h3>New escapes are on their way.</h3><p>There are no villas available just yet. Check back soon.</p></div> }
+    else { <div class="villa-grid">@foreach (var villa in Model.Villas.Take(3)) { <partial name="_VillaCard" model="villa" /> }</div> }
+</section>
+<section class="promise-band"><div class="container promise-grid"><div><span class="promise-number">01</span><h3>Space to slow down</h3><p>Room for long lunches, late mornings and all the people you love.</p></div><div><span class="promise-number">02</span><h3>Chosen with care</h3><p>Every home brings its own character, comfort and sense of place.</p></div><div><span class="promise-number">03</span><h3>Make it yours</h3><p>Find the right setting for your next chapter, whatever it looks like.</p></div></div></section>

@@ -1,0 +1,9 @@
+@model RoyalVillaWeb.Models.VillasPageViewModel
+@{ ViewData["Title"] = "Explore villas"; }
+<section class="page-banner"><div class="container"><span class="eyebrow">FIND YOUR OWN KIND OF PARADISE</span><h1>Explore our <em>villas.</em></h1><p>Exceptional places, with all the space to make them yours.</p></div></section>
+<section class="section-pad container listing-section">
+    <form class="search-bar" asp-action="Index" method="get" role="search"><label for="villa-search">Find your stay</label><div class="search-control"><span aria-hidden="true">⌕</span><input id="villa-search" type="search" name="q" value="@Model.Query" placeholder="Search by villa or description" /><button class="btn btn-dark-green" type="submit">Search <span>→</span></button></div></form>
+    @if (Model.Error is not null) { <div class="api-state"><div class="state-icon">⌁</div><h3>We can’t reach our collection right now.</h3><p>@Model.Error</p><a class="btn btn-dark-green" asp-action="Index">Try again</a></div> }
+    else if (Model.Villas.Count == 0) { <div class="api-state"><div class="state-icon">⌂</div><h3>@(Model.Query is null ? "No villas just yet" : "No matching villas")</h3><p>@(Model.Query is null ? "Our collection is being prepared. Please check back soon." : "Try another name or a broader search.")</p>@if (Model.Query is not null) { <a class="text-link" asp-action="Index">Clear search ↗</a> }</div> }
+    else { <div class="results-row"><span>@Model.Villas.Count @(Model.Villas.Count == 1 ? "villa" : "villas") to explore</span>@if (Model.IsAdmin) { <a class="btn btn-outline-green" asp-action="Create">+ Add villa</a> }</div><div class="villa-grid">@foreach (var villa in Model.Villas) { <partial name="_VillaCard" model="villa" /> }</div> }
+</section>

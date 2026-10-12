@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="RoyalVilla.Business/RoyalVilla.Business.csproj" />
+  <Project Path="RoyalVilla.Data/RoyalVilla.Data.csproj" />
+  <Project Path="RoyalVillaWeb/RoyalVillaWeb.csproj" />
+  <Project Path="RoyalVilla_API/RoyalVilla_API.csproj" />
+</Solution>

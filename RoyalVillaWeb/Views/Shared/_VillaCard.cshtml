@@ -1,0 +1,13 @@
+@model RoyalVillaWeb.Models.VillaDto
+<article class="villa-card">
+    <a class="villa-photo" asp-controller="Villas" asp-action="Details" asp-route-id="@Model.Id" aria-label="View @Model.Name">
+        <img src="@(string.IsNullOrWhiteSpace(Model.ImageUrl) ? "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1000&q=85" : Model.ImageUrl)" alt="@Model.Name" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=80';" />
+        <span class="photo-tag">A ROYAL STAY</span>
+        <span class="photo-arrow" aria-hidden="true">↗</span>
+    </a>
+    <div class="villa-card-body">
+        <div class="villa-card-top"><div><span class="eyebrow">PRIVATE VILLA</span><h3><a asp-controller="Villas" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a></h3></div><span class="villa-price">@Model.Rate.ToString("N0")<small> / night</small></span></div>
+        <p class="villa-excerpt">@(string.IsNullOrWhiteSpace(Model.Details) ? "A considered retreat, made for slower mornings and memorable stays." : Model.Details)</p>
+        <div class="villa-meta"><span><i aria-hidden="true">⌂</i> @Model.Sqft.ToString("N0") sqft</span><span><i aria-hidden="true">♙</i> Up to @Model.Occupancy guests</span></div>
+    </div>
+</article>

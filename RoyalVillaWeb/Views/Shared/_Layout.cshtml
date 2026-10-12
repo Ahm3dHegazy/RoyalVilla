@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#102c27" />
+    <title>@ViewData["Title"] · Royal Villa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+<header class="site-header">
+    <nav class="navbar navbar-expand-lg container py-3" aria-label="Main navigation">
+        <a class="navbar-brand brand-mark" asp-controller="Home" asp-action="Index"><span class="brand-icon">R</span><span>ROYAL<span class="brand-light">VILLA</span><small>STAYS, CURATED</small></span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="mainNav">
+            <div class="navbar-nav mx-auto gap-lg-4"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a><a class="nav-link" asp-controller="Villas" asp-action="Index">Explore villas</a></div>
+            <div class="nav-actions">
+                @if (Context.Session.GetString("ApiToken") is string token) {
+                    @if (RoyalVillaWeb.Controllers.AuthState.IsAdmin(token)) { <a class="btn btn-outline-light btn-sm me-2" asp-controller="Villas" asp-action="Create">Add a villa</a> }
+                    else { <span class="signed-in-label">Signed in</span> }
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline"><button class="btn btn-link nav-signin" type="submit">Sign out</button></form>
+                } else { <a class="btn btn-link nav-signin me-2" asp-controller="Account" asp-action="Register">Create account</a><a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Login">Sign in</a> }
+            </div>
+        </div>
+    </nav>
+</header>
+<main id="main-content">
+    @if (TempData["Success"] is string success) { <div class="container pt-3"><div class="alert alert-success alert-dismissible fade show" role="status">@success<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Dismiss"></button></div></div> }
+    @if (TempData["Error"] is string error) { <div class="container pt-3"><div class="alert alert-danger alert-dismissible fade show" role="alert">@error<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Dismiss"></button></div></div> }
+    @RenderBody()
+</main>
+<footer class="site-footer"><div class="container footer-inner"><a class="brand-mark footer-brand" asp-controller="Home" asp-action="Index"><span class="brand-icon">R</span><span>ROYAL<span class="brand-light">VILLA</span><small>STAYS, CURATED</small></span></a><p>Thoughtful stays for a life well travelled.</p><span>© @DateTime.Now.Year Royal Villa</span></div></footer>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

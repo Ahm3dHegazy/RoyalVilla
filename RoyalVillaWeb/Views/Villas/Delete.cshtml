@@ -1,0 +1,3 @@
+@model RoyalVillaWeb.Models.VillaDto
+@{ ViewData["Title"] = "Remove villa"; }
+<section class="form-page container"><a class="back-link dark" asp-action="Details" asp-route-id="@Model.Id">← Back to villa</a><div class="delete-card"><span class="delete-mark">!</span><span class="eyebrow">OWNER STUDIO</span><h1>Remove this <em>villa?</em></h1><p>You’re about to remove <strong>@Model.Name</strong> from the collection. This action cannot be undone.</p><form asp-action="Delete" asp-route-id="@Model.Id" method="post"><div class="form-actions"><a class="text-link" asp-action="Details" asp-route-id="@Model.Id">Keep this villa</a><button class="btn btn-danger" type="submit">Yes, remove villa</button></div></form></div></section>
